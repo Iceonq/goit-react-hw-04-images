@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import '../styles.css';
 import Button from './Button/Button';
 import ImageGallery from './ImageGallery/ImageGallery';
