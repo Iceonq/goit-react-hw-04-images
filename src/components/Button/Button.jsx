@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import css from './Button.module.css';
 
-export class Button extends Component {
-  render() {
-    let buttonVisibility = {};
-    if (this.props.hasMore === true) {
-      buttonVisibility.opacity = 1;
-    } else {
-      buttonVisibility.opacity = 0;
-    }
-    return (
-      <button
-        onClick={this.props.pagination}
-        className={css.button}
-        style={buttonVisibility}
-      >
-        Load More
-      </button>
-    );
+const Button = ({ pagination, hasMore }) => {
+  let buttonVisibility = {};
+  if (hasMore === true) {
+    buttonVisibility.opacity = 1;
+  } else {
+    buttonVisibility.opacity = 0;
   }
-}
+  return (
+    <button
+      onClick={pagination}
+      className={css.button}
+      style={buttonVisibility}
+    >
+      Load More
+    </button>
+  );
+};
+
+export default Button;
