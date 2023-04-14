@@ -37,6 +37,27 @@ const App = () => {
   };
 
   useEffect(() => {
+    const fetchImages = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `https://pixabay.com/api/?q=${searchQuery}&page=${page}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12}`
+        );
+        const newImages = response.data.hits;
+        if (response.data.hits.length === 0) {
+          alert('Nothing was found');
+          setHasMore(false);
+          setLoading(false);
+        } else {
+          setImages(prevState => [...prevState, ...newImages]);
+          setLoading(false);
+          setHasMore(true);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     fetchImages();
     document.addEventListener('keydown', handleKeyDown);
     return () => {
@@ -53,27 +74,6 @@ const App = () => {
   const handleSearch = query => {
     setSearchQuery(query);
     setImages([]);
-  };
-
-  const fetchImages = async () => {
-    try {
-      setLoading(true);
-      const response = await axios.get(
-        `https://pixabay.com/api/?q=${searchQuery}&page=${page}&key=${KEY}&image_type=photo&orientation=horizontal&per_page=12}`
-      );
-      const newImages = response.data.hits;
-      if (response.data.hits.length === 0) {
-        alert('Nothing was found');
-        setHasMore(false);
-        setLoading(false);
-      } else {
-        setImages(prevState => [...prevState, ...newImages]);
-        setLoading(false);
-        setHasMore(true);
-      }
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (
